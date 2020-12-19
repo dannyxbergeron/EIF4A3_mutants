@@ -1,0 +1,69 @@
+{
+    "test_datasets":
+    {
+        "HBR1_1": "hbr1_1",
+        "HBR1_2": "hbr1_2",
+        "HBR2_1": "hbr2_1",
+        "HBR2_2": "hbr2_2",
+        "UHR1_1": "uhr1_1",
+        "UHR1_2": "uhr1_2",
+        "UHR2_1": "uhr2_1",
+        "UHR2_2": "uhr2_2",
+    },
+    "RNAseq_datasets":
+    {
+        "transiant_ctrl" :"SRR5637679.1",
+        "transiant_siRNA_eIF4A3" :"SRR5637680.1",
+        "transiant_FLAG_eIF4A3_WT" :"SRR5637688.1",
+        "transiant_FLAG_eIF4A3_T163A" :"SRR5637689.1",
+        "transiant_FLAG_eIF4A3_T163D" :"SRR5637691.1",
+        "stable_ctrl_1" :"SRR6375597.1",
+        "stable_ctrl_2" :"SRR6375600.1",
+        "stable_siRNA_eIF4A3_1" :"SRR6375596.1",
+        "stable_siRNA_eIF4A3_2" :"SRR6375599.1",
+        "stable_eIF4A3_WT_1" :"SRR6375595.1",
+        "stable_eIF4A3_WT_2" :"SRR6375598.1",
+        "stable_eIF4A3_T163A_1" :"SRR6375593.1",
+        "stable_eIF4A3_T163A_2" :"SRR6375594.1",
+        "stable_eIF4A3_T163D_1" :"SRR6375592.1",
+        "stable_eIF4A3_T163D_2" :"SRR6375601.1"
+    },
+    "CLIP_datasets":
+    {
+        "FLAG_CLIP_eIF4A3_WT_1" :"SRR5637466.1",
+        "FLAG_CLIP_eIF4A3_T163A_1" :"SRR5637467.1",
+        "FLAG_CLIP_eIF4A3_T163D_1" :"SRR5637470.1",
+        "FLAG_CLIP_eIF4A3_WT_2" :"SRR5637661.1",
+        "FLAG_CLIP_eIF4A3_T163A_2" :"SRR5637674.1",
+        "FLAG_CLIP_eIF4A3_T163D_2" :"SRR5637675.1"
+    },
+    "download":
+    {
+        "genome": "ftp://ftp.ensembl.org/pub/release-101/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz",
+        "ENSEMBL_GFF3": "ftp://ftp.ensembl.org/pub/release-101/gff3/homo_sapiens/Homo_sapiens.GRCh38.101.gff3.gz"
+    },
+    "test_path":
+    {
+        "annotation": "data/references/chr22_with_ERCC92.gtf",
+        "ENSEMBL_GFF3": "data/references/chr22.gff3",
+        "genome": "data/references/chr22_with_ERCC92.fa",
+        "transcriptome": "data/references/transcriptome.fa",
+        "gene_name" : "data/references/gene_name.txt",
+        "kallisto_index" : "data/references/kallisto.idx",
+        "star_index" : "data/references/star_index/",
+        "rsem_index" : "data/references/rsem",
+        "chrNameLength" : "data/chrNameLength.txt"
+    },
+    "path":
+    {
+        "annotation": "hg38_Ensembl_V101_Scottlab_2020.gtf",
+        "ENSEMBL_GFF3": "data/references/Homo_sapiens.GRCh38.101.gff3",
+        "genome": "data/references/genome_101_primary.fa",
+        "transcriptome": "data/references/transcriptome.fa",
+        "gene_name" : "data/references/gene_name.txt",
+        "kallisto_index" : "data/references/kallisto.idx",
+        "star_index" : "data/references/star_index/",
+        "rsem_index" : "data/references/rsem",
+        "chrNameLength" : "data/chrNameLength.txt"
+    }
+}

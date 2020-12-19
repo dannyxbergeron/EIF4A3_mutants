@@ -1,0 +1,61 @@
+import os
+
+configfile: "config.json"
+
+original_name = list(config['test_datasets'].values())
+simple_id = list(config['test_datasets'].keys())
+# simple_id = ['HBR1_1']
+
+
+
+rule all:
+    input:
+        expand("data/qc/{id}_fastqc.html",
+                        id=simple_id),
+        bam = expand("results/STAR/{id}/Aligned.sortedByCoord.out.bam",
+                        id=simple_id),
+        bw = expand("results/genomCov/bigwig/{id}.bw",
+                        id=simple_id),
+        kallisto_quant = "results/kallisto/tpm.tsv",
+        rsem_quant = expand("results/RSEM/{id}/rsem.genes.results",
+                            id=simple_id)
+
+
+rule download_genome:
+    """ Downloads the genome from Ensembl FTP servers """
+    output:
+        genome = config['test_path']['genome']
+    params:
+        link = config['download']['genome']
+    shell:
+        "wget --quiet -O {output.genome}.gz {params.link} && "
+        "gzip -d {output.genome}.gz "
+
+rule rename_files:
+    input:
+        fastq = expand("data/reads/{original_name}.fastq",
+                       original_name=original_name)
+    output:
+        new_name = expand("data/reads/{id}.fastq",
+                          id=simple_id)
+    run:
+        for id, original in config['test_datasets'].items():
+            old = "data/reads/{}.fastq".format(original)
+            new_ = "data/reads/{}.fastq".format(id)
+
+            print(old)
+            print(new_)
+            os.rename(old, new_)
+
+
+# include RNA_seq
+include: "rules/RNA_seq.smk"
+
+# include kallisto for non-CLIP
+include: "rules/kallisto.smk"
+
+# include rsem for non-CLIP
+include: "rules/rsem.smk"
+
+# include genomeCov for everything
+include: "rules/genomCov.smk"
