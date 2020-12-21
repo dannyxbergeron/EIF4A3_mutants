@@ -47,6 +47,7 @@ rule qc:
         "{input.fq} "
         "&> {log}"
 
+
 rule star_index:
     """ Generates the genome index for STAR """
     input:

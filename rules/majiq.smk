@@ -1,16 +1,16 @@
-# rule install_majiq:
-#     input:
-#         bam = expand("results/STAR/ALL/{id}.bam",
-#                         id=simple_id)
-#     output:
-#         env = directory('data/majiq_env')
-#     conda:
-#         '../envs/majiq.yaml'
-#     shell:
-#         'cd data && '
-#         'virtualenv --python=python3.6.9 majiq_env && '
-#         'cd ../ &&'
-#         'scripts/install_majiq.sh {output.env}'
+rule install_majiq:
+    # input:
+        # bam = expand("results/STAR/ALL/{id}.bam",
+        #                 id=rna_seq_id)
+    output:
+        env = directory('data/majiq_env')
+    conda:
+        '../envs/majiq.yaml'
+    shell:
+        'cd data && '
+        'virtualenv --python=python3.6.10 majiq_env && '
+        'cd ../ &&'
+        'scripts/install_majiq.sh {output.env}'
 
 def reroute_bam(wildcards):
     id = wildcards.majiq_path.split('/')[1]
@@ -63,7 +63,7 @@ rule majiq_build:
 def get_input(wildcards):
     res = [
         'results/majiq/{}/majiq_build/{}.majiq'.format(wildcards.cell_type, x)
-        for x in simple_id
+        for x in rna_seq_id
         if wildcards.cell_type in x
         and wildcards.group in x
     ]

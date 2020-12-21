@@ -2,16 +2,15 @@ import os
 
 configfile: "config.json"
 
-original_name = list(config['datasets'].values())
-simple_id = list(config['datasets'].keys())
+original_name = [*(config['RNAseq_datasets'].values()), *(config['CLIP_datasets'].values())]
+simple_id = [*(config['RNAseq_datasets'].keys()), *(config['CLIP_datasets'].keys())]
 
-transiant = [x for x in simple_id if 'transiant' in x]
-stable = [x for x in simple_id if 'stable' in x]
+rna_seq_id = config['RNAseq_datasets'].keys()
 
 # To separate transiant and stable
 majiq_path = [
     '{}/{}'.format(x.split('_')[0], x)
-    for x in simple_id
+    for x in rna_seq_id
 ]
 
 
@@ -25,7 +24,7 @@ rule all:
                         id=simple_id),
         kallisto_quant = "results/kallisto/tpm.tsv",
         rsem_quant = expand("results/RSEM/{id}/rsem.genes.results",
-                            id=simple_id),
+                            id=rna_seq_id),
         star_rename_index = expand("results/STAR/{majiq_path}.bam.bai",
                                     majiq_path=majiq_path),
         majiq_build = expand('results/majiq/{cell_type}/majiq_build/',
@@ -39,12 +38,16 @@ rule all:
 rule download_genome:
     """ Downloads the genome from Ensembl FTP servers """
     output:
-        genome = config['path']['genome']
+        genome = config['path']['genome'],
+        gff3 = config['path']['ENSEMBL_GFF3']
     params:
-        link = config['download']['genome']
+        link = config['download']['genome'],
+        gff3_link = config['download']['ENSEMBL_GFF3']
     shell:
         "wget --quiet -O {output.genome}.gz {params.link} && "
-        "gzip -d {output.genome}.gz "
+        "wget --quiet -O {output.gff3}.gz {params.gff3_link} &&"
+        "gzip -d {output.genome}.gz && "
+        "gzip -d {output.gff3}.gz"
 
 rule rename_files:
     input:
@@ -54,7 +57,8 @@ rule rename_files:
         new_name = expand("data/reads/{id}.fastq",
                           id=simple_id)
     run:
-        for id, original in config['datasets'].items():
+        for id, original in {**config['RNAseq_datasets'],
+                             **config['CLIP_datasets']}.items():
             old = "data/reads/{}.fastq".format(original)
             new_ = "data/reads/{}.fastq".format(id)
 

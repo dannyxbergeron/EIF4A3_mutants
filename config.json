@@ -65,11 +65,11 @@
     },
     "path":
     {
-        "annotation": "hg38_Ensembl_V101_Scottlab_2020.gtf",
+        "annotation": "data/references/hg38_Ensembl_V101_Scottlab_2020.gtf",
         "ENSEMBL_GFF3": "data/references/Homo_sapiens.GRCh38.101.gff3",
         "genome": "data/references/genome_101_primary.fa",
         "transcriptome": "data/references/transcriptome.fa",
-        "gene_name" : "data/references/gene_name.txt",
+        "gene_name" : "data/references/transId_geneId.txt",
         "kallisto_index" : "data/references/kallisto.idx",
         "star_index" : "data/references/star_index/",
         "rsem_index" : "data/references/rsem",

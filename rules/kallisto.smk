@@ -1,29 +1,29 @@
-rule create_transcriptome:
-    """ Uses gffread to generate a transcriptome """
-    input:
-        genome = config['path']['genome'],
-        gtf = config['path']['annotation']
-    output:
-        seqs = config['path']['transcriptome']
-    conda:
-        "../envs/gffread.yaml"
-    shell:
-        "gffread {input.gtf} -g {input.genome} -w {output.seqs}"
+# rule create_transcriptome:
+#     """ Uses gffread to generate a transcriptome """
+#     input:
+#         genome = config['path']['genome'],
+#         gtf = config['path']['annotation']
+#     output:
+#         seqs = config['path']['transcriptome']
+#     conda:
+#         "../envs/gffread.yaml"
+#     shell:
+#         "gffread {input.gtf} -g {input.genome} -w {output.seqs}"
 
 
-rule generate_transcriptID_geneID:
-    """
-    Generating a two-column text file containing the gene -> transcript
-    relationship
-    """
-    input:
-        gtf = config['path']['annotation']
-    output:
-        map = config['path']['gene_name']
-    conda:
-        "../envs/python.yaml"
-    script:
-        "../scripts/generate_transcriptID_geneID.py"
+# rule generate_transcriptID_geneID:
+#     """
+#     Generating a two-column text file containing the gene -> transcript
+#     relationship
+#     """
+#     input:
+#         gtf = config['path']['annotation']
+#     output:
+#         map = config['path']['gene_name']
+#     conda:
+#         "../envs/python.yaml"
+#     script:
+#         "../scripts/generate_transcriptID_geneID.py"
 
 
 rule kallisto_index:
@@ -82,7 +82,7 @@ rule combine_gene_quantification:
     """
     input:
         datasets = expand( "results/kallisto/{id}/abundance.tsv",
-                            id=simple_id),
+                            id=rna_seq_id),
         map = config['path']['gene_name']
     output:
         tpm = "results/kallisto/tpm.tsv",
