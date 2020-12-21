@@ -31,7 +31,9 @@ rule all:
         majiq_build = expand('results/majiq/{cell_type}/majiq_build/',
                               cell_type=config['cell_types']),
         majiq_output = expand('results/majiq/{cell_type}/quant/{group}.psi.tsv',
-                                cell_type=config['cell_types'], group=config['test_conditions'])
+                                cell_type=config['cell_types'], group=config['test_conditions']),
+        # deltapsi = expand('results/majiq/{cell_type}/deltapsi/{group}.deltapsi.voila',
+        #                     cell_type=config['cell_types'], group=config['test_conditions']),
 
 
 rule download_genome:

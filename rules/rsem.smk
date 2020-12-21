@@ -9,7 +9,7 @@ rule rsem_reference:
     log:
         "logs/RSEM/ref_log.tok"
     threads:
-        2
+        32
     conda:
         "../envs/rsem.yaml"
     shell:
@@ -33,7 +33,7 @@ rule run_rsem:
     log:
         "logs/RSEM/{id}.log"
     threads:
-        2
+        32
     conda:
         "../envs/rsem.yaml"
     shell:

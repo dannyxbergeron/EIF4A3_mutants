@@ -49,7 +49,7 @@ rule majiq_build:
         ],
         env = 'data/majiq_env'
     threads:
-        4
+        32
     shell:
         "scripts/run_majiq.sh '{params.env}' "
         "'{params.cmd}"
@@ -81,7 +81,7 @@ rule majiq_quant:
         ],
         env = 'data/majiq_env'
     threads:
-        4
+        32
     shell:
         "scripts/run_majiq.sh '{params.env}' "
         "'{params.cmd} "
@@ -89,3 +89,41 @@ rule majiq_quant:
         "-o results/majiq/{wildcards.cell_type}/quant "
         "-n {wildcards.group} "
         "{params.majiq}'"
+
+
+#voila cmd for tsv (could only be run in with majiq_env on...)
+# voila tsv splicegraph.sql psi.voila --gene_name RPL3 -f output_file.tsv
+
+#voila cmd for viz
+# voila view splicegraph.sql deltapsi.voila
+
+
+
+# TEST ONLY !!!!!!!
+# rule majiq_deltapsi:
+#     input:
+#         majiq_build_dir = 'results/majiq/stable/majiq_build/',
+#     output:
+#         deltapsi = directory('results/majiq/stable/deltapsi'),
+#     params:
+#         majiq = [
+#             '-grp1 ',
+#             'results/majiq/stable/majiq_build/stable_HBR2_1.majiq ',
+#             'results/majiq/stable/majiq_build/stable_HBR2_2.majiq ',
+#             '-grp2 ',
+#             'results/majiq/stable/majiq_build/stable_UHR2_1.majiq ',
+#             'results/majiq/stable/majiq_build/stable_UHR2_2.majiq ',
+#         ],
+#         cmd = [
+#             'deltapsi '
+#         ],
+#         env = 'data/majiq_env'
+#     threads:
+#         4
+#     shell:
+#         "scripts/run_majiq.sh '{params.env}' "
+#         "'{params.cmd} "
+#         "-j {threads} "
+#         "-o {output.deltapsi} "
+#         "-n HBR UHR "
+#         "{params.majiq}'"

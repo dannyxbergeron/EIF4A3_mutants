@@ -45,15 +45,33 @@
         "mem": "128G",
         "time": "0-3:00:00"
     },
-    "coco_cb":
-    {
-        "cpus-per-task": "16",
-        "mem": "32G",
-        "time": "0-4:00:00"
-    },
     "genomCov":
     {
         "mem": "16G",
+        "time": "0-5:00:00"
+    },
+    "rsem_reference":
+    {
+        "cpus-per-task": "32",
+        "mem": "128G",
+        "time": "0-6:00:00"
+    },
+    "run_rsem":
+    {
+        "cpus-per-task": "32",
+        "mem": "128G",
+        "time": "0-3:00:00"
+    },
+    "majiq_build":
+    {
+        "cpus-per-task": "32",
+        "mem": "128G",
+        "time": "0-5:00:00"
+    },
+    "majiq_quant":
+    {
+        "cpus-per-task": "32",
+        "mem": "128G",
         "time": "0-5:00:00"
     }
 }
