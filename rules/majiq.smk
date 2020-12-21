@@ -37,7 +37,7 @@ rule index_bam:
 rule majiq_build:
     input:
         env = 'data/majiq_env',
-        gff3 = config['test_path']['ENSEMBL_GFF3'],
+        gff3 = config['path']['ENSEMBL_GFF3'],
         conf = 'data/majiq_build_config_{cell_type}.ini',
         star_rename_index = expand("results/STAR/{majiq_path}.bam.bai",
                                     majiq_path=majiq_path)

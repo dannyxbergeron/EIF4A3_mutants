@@ -1,10 +1,10 @@
 rule create_transcriptome:
     """ Uses gffread to generate a transcriptome """
     input:
-        genome = config['test_path']['genome'],
-        gtf = config['test_path']['annotation']
+        genome = config['path']['genome'],
+        gtf = config['path']['annotation']
     output:
-        seqs = config['test_path']['transcriptome']
+        seqs = config['path']['transcriptome']
     conda:
         "../envs/gffread.yaml"
     shell:
@@ -17,9 +17,9 @@ rule generate_transcriptID_geneID:
     relationship
     """
     input:
-        gtf = config['test_path']['annotation']
+        gtf = config['path']['annotation']
     output:
-        map = config['test_path']['gene_name']
+        map = config['path']['gene_name']
     conda:
         "../envs/python.yaml"
     script:
@@ -29,9 +29,9 @@ rule generate_transcriptID_geneID:
 rule kallisto_index:
     """ Generates the transcriptome index for Kallisto """
     input:
-        transcriptome = config['test_path']['transcriptome']
+        transcriptome = config['path']['transcriptome']
     output:
-        idx = config['test_path']['kallisto_index']
+        idx = config['path']['kallisto_index']
     params:
         kmer = "31"
     log:
@@ -49,7 +49,7 @@ rule kallisto_index:
 rule kallisto_quant:
     """ Generates counts using Kallisto pseudo-alignment """
     input:
-        idx = config['test_path']['kallisto_index'],
+        idx = config['path']['kallisto_index'],
         fq = "data/trimmed/{id}.fastq.gz"
     output:
         quant = "results/kallisto/{id}/abundance.tsv",
@@ -83,7 +83,7 @@ rule combine_gene_quantification:
     input:
         datasets = expand( "results/kallisto/{id}/abundance.tsv",
                             id=simple_id),
-        map = config['test_path']['gene_name']
+        map = config['path']['gene_name']
     output:
         tpm = "results/kallisto/tpm.tsv",
         est_counts = "results/kallisto/est_counts.tsv",

@@ -50,12 +50,12 @@ rule qc:
 rule star_index:
     """ Generates the genome index for STAR """
     input:
-        fasta = config["test_path"]["genome"],
-        gtf = config["test_path"]['annotation']
+        fasta = config["path"]["genome"],
+        gtf = config["path"]['annotation']
     output:
         chrNameLength = "data/references/star_index/chrNameLength.txt"
     params:
-        dir = config['test_path']['star_index']
+        dir = config['path']['star_index']
     log:
         "logs/STAR/index.log"
     conda:
@@ -81,7 +81,7 @@ rule star_alignReads:
     output:
         bam = "results/STAR/{id}/Aligned.sortedByCoord.out.bam"
     params:
-        index = config['test_path']['star_index'],
+        index = config['path']['star_index'],
         output_dir = "results/STAR/{id}/"
     log:
         "logs/STAR/{id}.log"

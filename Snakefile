@@ -2,8 +2,8 @@ import os
 
 configfile: "config.json"
 
-original_name = list(config['test_datasets'].values())
-simple_id = list(config['test_datasets'].keys())
+original_name = list(config['datasets'].values())
+simple_id = list(config['datasets'].keys())
 
 transiant = [x for x in simple_id if 'transiant' in x]
 stable = [x for x in simple_id if 'stable' in x]
@@ -31,15 +31,15 @@ rule all:
         majiq_build = expand('results/majiq/{cell_type}/majiq_build/',
                               cell_type=config['cell_types']),
         majiq_output = expand('results/majiq/{cell_type}/quant/{group}.psi.tsv',
-                                cell_type=config['cell_types'], group=config['test_conditions']),
+                                cell_type=config['cell_types'], group=config['conditions']),
         # deltapsi = expand('results/majiq/{cell_type}/deltapsi/{group}.deltapsi.voila',
-        #                     cell_type=config['cell_types'], group=config['test_conditions']),
+        #                     cell_type=config['cell_types'], group=config['conditions']),
 
 
 rule download_genome:
     """ Downloads the genome from Ensembl FTP servers """
     output:
-        genome = config['test_path']['genome']
+        genome = config['path']['genome']
     params:
         link = config['download']['genome']
     shell:
@@ -54,7 +54,7 @@ rule rename_files:
         new_name = expand("data/reads/{id}.fastq",
                           id=simple_id)
     run:
-        for id, original in config['test_datasets'].items():
+        for id, original in config['datasets'].items():
             old = "data/reads/{}.fastq".format(original)
             new_ = "data/reads/{}.fastq".format(id)
 

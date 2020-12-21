@@ -1,11 +1,11 @@
 rule rsem_reference:
     input:
-        gtf = config["test_path"]['annotation'],
-        fasta = config["test_path"]["genome"],
+        gtf = config["path"]['annotation'],
+        fasta = config["path"]["genome"],
     output:
         rsem_idx = "data/references/rsem.transcripts.fa",
     params:
-        base = config['test_path']['rsem_index']
+        base = config['path']['rsem_index']
     log:
         "logs/RSEM/ref_log.tok"
     threads:
@@ -28,7 +28,7 @@ rule run_rsem:
         quant = "results/RSEM/{id}/rsem.genes.results"
     params:
         base_name = "results/RSEM/{id}/rsem",
-        ref_dir = config['test_path']['rsem_index'],
+        ref_dir = config['path']['rsem_index'],
         tmp_dir = "results/RSEM/{id}/tmp"
     log:
         "logs/RSEM/{id}.log"
