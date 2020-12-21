@@ -1,22 +1,25 @@
 {
     "test_datasets":
     {
-        "HBR1_1": "hbr1_1",
-        "HBR1_2": "hbr1_2",
-        "HBR2_1": "hbr2_1",
-        "HBR2_2": "hbr2_2",
-        "UHR1_1": "uhr1_1",
-        "UHR1_2": "uhr1_2",
-        "UHR2_1": "uhr2_1",
-        "UHR2_2": "uhr2_2",
+        "transiant_HBR1_1": "HBR1_1",
+        "transiant_HBR1_2": "HBR1_2",
+        "transiant_UHR1_1": "UHR1_1",
+        "transiant_UHR1_2": "UHR1_2",
+        "stable_HBR2_1": "HBR2_1",
+        "stable_HBR2_2": "HBR2_2",
+        "stable_UHR2_1": "UHR2_1",
+        "stable_UHR2_2": "UHR2_2"
     },
+    "test_conditions": [
+        "HBR", "UHR"
+    ],
     "RNAseq_datasets":
     {
         "transiant_ctrl" :"SRR5637679.1",
         "transiant_siRNA_eIF4A3" :"SRR5637680.1",
-        "transiant_FLAG_eIF4A3_WT" :"SRR5637688.1",
-        "transiant_FLAG_eIF4A3_T163A" :"SRR5637689.1",
-        "transiant_FLAG_eIF4A3_T163D" :"SRR5637691.1",
+        "transiant_eIF4A3_WT" :"SRR5637688.1",
+        "transiant_eIF4A3_T163A" :"SRR5637689.1",
+        "transiant_eIF4A3_T163D" :"SRR5637691.1",
         "stable_ctrl_1" :"SRR6375597.1",
         "stable_ctrl_2" :"SRR6375600.1",
         "stable_siRNA_eIF4A3_1" :"SRR6375596.1",
@@ -28,14 +31,20 @@
         "stable_eIF4A3_T163D_1" :"SRR6375592.1",
         "stable_eIF4A3_T163D_2" :"SRR6375601.1"
     },
+    "conditions": [
+        "ctrl", "siRNA", "WT", "T163A", "T163D"
+    ],
+    "cell_types": [
+        "transiant", "stable"
+    ],
     "CLIP_datasets":
     {
-        "FLAG_CLIP_eIF4A3_WT_1" :"SRR5637466.1",
-        "FLAG_CLIP_eIF4A3_T163A_1" :"SRR5637467.1",
-        "FLAG_CLIP_eIF4A3_T163D_1" :"SRR5637470.1",
-        "FLAG_CLIP_eIF4A3_WT_2" :"SRR5637661.1",
-        "FLAG_CLIP_eIF4A3_T163A_2" :"SRR5637674.1",
-        "FLAG_CLIP_eIF4A3_T163D_2" :"SRR5637675.1"
+        "CLIP_eIF4A3_WT_1" :"SRR5637466.1",
+        "CLIP_eIF4A3_WT_2" :"SRR5637661.1",
+        "CLIP_eIF4A3_T163A_1" :"SRR5637467.1",
+        "CLIP_eIF4A3_T163A_2" :"SRR5637674.1",
+        "CLIP_eIF4A3_T163D_1" :"SRR5637470.1",
+        "CLIP_eIF4A3_T163D_2" :"SRR5637675.1"
     },
     "download":
     {

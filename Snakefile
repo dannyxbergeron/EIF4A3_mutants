@@ -4,8 +4,15 @@ configfile: "config.json"
 
 original_name = list(config['test_datasets'].values())
 simple_id = list(config['test_datasets'].keys())
-# simple_id = ['HBR1_1']
 
+transiant = [x for x in simple_id if 'transiant' in x]
+stable = [x for x in simple_id if 'stable' in x]
+
+# To separate transiant and stable
+majiq_path = [
+    '{}/{}'.format(x.split('_')[0], x)
+    for x in simple_id
+]
 
 
 rule all:
@@ -18,7 +25,13 @@ rule all:
                         id=simple_id),
         kallisto_quant = "results/kallisto/tpm.tsv",
         rsem_quant = expand("results/RSEM/{id}/rsem.genes.results",
-                            id=simple_id)
+                            id=simple_id),
+        star_rename_index = expand("results/STAR/{majiq_path}.bam.bai",
+                                    majiq_path=majiq_path),
+        majiq_build = expand('results/majiq/{cell_type}/majiq_build/',
+                              cell_type=config['cell_types']),
+        majiq_output = expand('results/majiq/{cell_type}/quant/{group}.psi.tsv',
+                                cell_type=config['cell_types'], group=config['test_conditions'])
 
 
 rule download_genome:
@@ -51,11 +64,14 @@ rule rename_files:
 # include RNA_seq
 include: "rules/RNA_seq.smk"
 
+# include genomeCov for everything
+include: "rules/genomCov.smk"
+
 # include kallisto for non-CLIP
 include: "rules/kallisto.smk"
 
 # include rsem for non-CLIP
 include: "rules/rsem.smk"
 
-# include genomeCov for everything
-include: "rules/genomCov.smk"
+# include majiq analysis
+include: "rules/majiq.smk"

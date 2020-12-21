@@ -1,4 +1,5 @@
 channels:
-  - bioconda
+  - anaconda
 dependencies:
-  - htslib =1.11
+  - python =3.6.10
+  - virtualenv =20.2.2
