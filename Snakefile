@@ -27,6 +27,7 @@ rule all:
                             id=rna_seq_id),
         star_rename_index = expand("results/STAR/{majiq_path}.bam.bai",
                                     majiq_path=majiq_path),
+        transcript_tpm = "results/RSEM/transcript_tpm.tsv",
         majiq_build = expand('results/majiq/{cell_type}/majiq_build/',
                               cell_type=config['cell_types']),
         majiq_output = expand('results/majiq/{cell_type}/quant/{group}.psi.tsv',

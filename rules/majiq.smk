@@ -14,12 +14,25 @@ def reroute_bam(wildcards):
     return f'results/STAR/{id}/Aligned.sortedByCoord.out.bam'
 
 rule star_rename:
+    """
+    manualy filter the GFF3 for chr3 with:
+    cat Homo_sapiens.GRCh38.101.gff3
+    | awk '$1 == "3" ||
+           $1 == "##gff-version" ||
+           $1 ~ /^#!genome/ ||
+           $0 == "##sequence-region   3 1 198295559"'
+           > Homo_sapiens.GRCh38.101.chr3.gff3
+    """
     input:
-        bam = reroute_bam
+        bam = reroute_bam,
     output:
-        bam = "results/STAR/{majiq_path, [\w\d_]+/[\w\d_]+}.bam"
+        bam = "results/STAR/{majiq_path, [\w\d_]+/[\w\d_]+}.bam",
+    params:
+        chr = 'chr3'
+    conda:
+        "../envs/tools.yaml"
     shell:
-        'cp {input.bam} {output.bam}'
+        'samtools view -b {input.bam} {params.chr} > {output.bam}'
 
 rule index_bam:
     input:
@@ -34,7 +47,7 @@ rule index_bam:
 rule majiq_build:
     input:
         env = 'data/majiq_env',
-        gff3 = config['path']['ENSEMBL_GFF3'],
+        gff3 = config['path']['ENSEMBL_GFF3_chr3'],
         conf = 'data/majiq_build_config_{cell_type}.ini',
         star_rename_index = expand("results/STAR/{majiq_path}.bam.bai",
                                     majiq_path=majiq_path)
