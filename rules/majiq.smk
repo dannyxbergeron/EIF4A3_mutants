@@ -43,6 +43,9 @@ rule majiq_build:
     params:
         cmd = [
             'build '
+            '--disable-ir '
+            '--disable-denovo '
+            '--disable-denovo-ir '
         ],
         env = 'data/majiq_env'
     threads:
