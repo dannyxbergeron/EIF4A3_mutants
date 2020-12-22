@@ -45,7 +45,10 @@ rule majiq_build:
         out_dir = directory('results/majiq/{cell_type}/majiq_build/'),
     params:
         cmd = [
-            'build '
+            'build ',
+            '--disable-ir ',
+            '--disable-denovo ',
+            '--disable-denovo-ir '
         ],
         env = 'data/majiq_env'
     threads:
