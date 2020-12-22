@@ -46,3 +46,19 @@ rule run_rsem:
         "{input.fq} "
         "{params.ref_dir} "
         "{params.base_name} &> {log}"
+
+rule agg_rsem_res:
+    input:
+        gene_quant = expand("results/RSEM/{id}/rsem.genes.results",
+                            id=rna_seq_id),
+        trans_quant = expand("results/RSEM/{id}/rsem.isoforms.results",
+                            id=rna_seq_id)
+    output:
+        tpm = "results/RSEM/tpm.tsv",
+        est_counts = "results/RSEM/est_counts.tsv",
+        transcript_tpm = "results/RSEM/transcript_tpm.tsv",
+        transcript_est_counts = "results/RSEM/transcript_est_counts.tsv"
+    conda:
+        "../envs/python.yaml"
+    script:
+        "../scripts/agg_rsem_res.py"
