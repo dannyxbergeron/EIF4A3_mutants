@@ -11,6 +11,7 @@ data/qc
 data/trimmed
 data/majiq_env
 results/
+CLUSTER_RESULTS/
 rules/__pycache__
 
 # Server files
