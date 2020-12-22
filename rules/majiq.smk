@@ -28,10 +28,11 @@ rule star_rename:
     output:
         bam = "results/STAR/{majiq_path, [\w\d_]+/[\w\d_]+}.bam",
     params:
-        chr = 'chr3'
+        chr = '3'
     conda:
         "../envs/tools.yaml"
     shell:
+        'samtools index {input.bam} && '
         'samtools view -b {input.bam} {params.chr} > {output.bam}'
 
 rule index_bam:
