@@ -17,23 +17,24 @@ majiq_path = [
 
 rule all:
     input:
-        expand("data/qc/{id}_fastqc.html",
-                        id=simple_id),
-        bam = expand("results/STAR/{id}/Aligned.sortedByCoord.out.bam",
-                        id=simple_id),
-        bw = expand("results/genomCov/bigwig/{id}.bw",
-                        id=simple_id),
-        kallisto_quant = "results/kallisto/tpm.tsv",
-        rsem_quant = expand("results/RSEM/{id}/rsem.genes.results",
-                            id=simple_id),
-        star_rename_index = expand("results/STAR/{majiq_path}.bam.bai",
-                                    majiq_path=majiq_path),
+        # expand("data/qc/{id}_fastqc.html",
+        #                 id=simple_id),
+        # bam = expand("results/STAR/{id}/Aligned.sortedByCoord.out.bam",
+        #                 id=simple_id),
+        # bw = expand("results/genomCov/bigwig/{id}.bw",
+        #                 id=simple_id),
+        # kallisto_quant = "results/kallisto/tpm.tsv",
+        # rsem_quant = expand("results/RSEM/{id}/rsem.genes.results",
+        #                     id=simple_id),
+        # star_rename_index = expand("results/STAR/{majiq_path}.bam.bai",
+        #                             majiq_path=majiq_path),
         majiq_build = expand('results/majiq/{cell_type}/majiq_build/',
                               cell_type=config['cell_types']),
         majiq_output = expand('results/majiq/{cell_type}/quant/{group}.psi.tsv',
                                 cell_type=config['cell_types'], group=config['test_conditions']),
         # deltapsi = expand('results/majiq/{cell_type}/deltapsi/{group}.deltapsi.voila',
         #                     cell_type=config['cell_types'], group=config['test_conditions']),
+        transcript_est_counts = "results/RSEM/transcript_est_counts.tsv"
 
 
 rule download_genome:
