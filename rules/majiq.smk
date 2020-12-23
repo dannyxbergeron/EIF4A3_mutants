@@ -112,30 +112,30 @@ rule majiq_quant:
 
 
 # TEST ONLY !!!!!!!
-# rule majiq_deltapsi:
-#     input:
-#         majiq_build_dir = 'results/majiq/stable/majiq_build/',
-#     output:
-#         deltapsi = directory('results/majiq/stable/deltapsi'),
-#     params:
-#         majiq = [
-#             '-grp1 ',
-#             'results/majiq/stable/majiq_build/stable_HBR2_1.majiq ',
-#             'results/majiq/stable/majiq_build/stable_HBR2_2.majiq ',
-#             '-grp2 ',
-#             'results/majiq/stable/majiq_build/stable_UHR2_1.majiq ',
-#             'results/majiq/stable/majiq_build/stable_UHR2_2.majiq ',
-#         ],
-#         cmd = [
-#             'deltapsi '
-#         ],
-#         env = 'data/majiq_env'
-#     threads:
-#         4
-#     shell:
-#         "scripts/run_majiq.sh '{params.env}' "
-#         "'{params.cmd} "
-#         "-j {threads} "
-#         "-o {output.deltapsi} "
-#         "-n HBR UHR "
-#         "{params.majiq}'"
+rule majiq_deltapsi:
+    input:
+        majiq_build_dir = 'results/majiq/stable/majiq_build/',
+    output:
+        deltapsi = directory('results/majiq/stable/deltapsi'),
+    params:
+        majiq = [
+            '-grp1 ',
+            'results/majiq/stable/majiq_build/stable_ctrl_1.majiq ',
+            'results/majiq/stable/majiq_build/stable_ctrl_2.majiq ',
+            '-grp2 ',
+            'results/majiq/stable/majiq_build/stable_siRNA_eIF4A3_1.majiq ',
+            'results/majiq/stable/majiq_build/stable_siRNA_eIF4A3_2.majiq ',
+        ],
+        cmd = [
+            'deltapsi '
+        ],
+        env = 'data/majiq_env'
+    threads:
+        1
+    shell:
+        "scripts/run_majiq.sh '{params.env}' "
+        "'{params.cmd} "
+        "-j {threads} "
+        "-o {output.deltapsi} "
+        "-n ctrl siRNA "
+        "{params.majiq}'"
