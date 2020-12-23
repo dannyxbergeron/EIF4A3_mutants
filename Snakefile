@@ -16,22 +16,22 @@ majiq_path = [
 
 rule all:
     input:
-        expand("data/qc/{id}_fastqc.html",
-                        id=simple_id),
-        bam = expand("results/STAR/{id}/Aligned.sortedByCoord.out.bam",
-                        id=simple_id),
-        bw = expand("results/genomCov/bigwig/{id}.bw",
-                        id=simple_id),
-        kallisto_quant = "results/kallisto/tpm.tsv",
-        rsem_quant = expand("results/RSEM/{id}/rsem.genes.results",
-                            id=rna_seq_id),
-        star_rename_index = expand("results/STAR/{majiq_path}.bam.bai",
-                                    majiq_path=majiq_path),
-        transcript_tpm = "results/RSEM/transcript_tpm.tsv",
-        majiq_build = expand('results/majiq/{cell_type}/majiq_build/',
-                              cell_type=config['cell_types']),
-        majiq_output = expand('results/majiq/{cell_type}/quant/{group}.psi.tsv',
-                                cell_type=config['cell_types'], group=config['conditions']),
+        # expand("data/qc/{id}_fastqc.html",
+        #                 id=simple_id),
+        # bam = expand("results/STAR/{id}/Aligned.sortedByCoord.out.bam",
+        #                 id=simple_id),
+        # bw = expand("results/genomCov/bigwig/{id}.bw",
+        #                 id=simple_id),
+        # kallisto_quant = "results/kallisto/tpm.tsv",
+        # rsem_quant = expand("results/RSEM/{id}/rsem.genes.results",
+        #                     id=rna_seq_id),
+        # star_rename_index = expand("results/STAR/{majiq_path}.bam.bai",
+        #                             majiq_path=majiq_path),
+        # transcript_tpm = "results/RSEM/transcript_tpm.tsv",
+        # majiq_build = expand('results/majiq/{cell_type}/majiq_build/',
+        #                       cell_type=config['cell_types']),
+        # majiq_output = expand('results/majiq/{cell_type}/quant/{group}.psi.tsv',
+        #                         cell_type=config['cell_types'], group=config['conditions']),
         # deltapsi = expand('results/majiq/{cell_type}/deltapsi/{group}.deltapsi.voila',
         #                     cell_type=config['cell_types'], group=config['conditions']),
 
@@ -82,3 +82,6 @@ include: "rules/rsem.smk"
 
 # include majiq analysis
 include: "rules/majiq.smk"
+
+# include graph and stats
+include: "rules/graph.smk"
