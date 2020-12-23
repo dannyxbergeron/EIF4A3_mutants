@@ -104,7 +104,7 @@ rule majiq_quant:
 
 
 #voila cmd for tsv (could only be run in with majiq_env on...)
-# voila tsv splicegraph.sql psi.voila --gene_name RPL3 -f output_file.tsv
+# voila tsv splicegraph.sql psi.voila --gene_names RPL3 -f output_file.tsv
 
 #voila cmd for viz
 # voila view splicegraph.sql deltapsi.voila
