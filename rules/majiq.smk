@@ -2,10 +2,8 @@ rule install_majiq:
     output:
         env = directory('data/majiq_env')
     shell:
-        'module load nixpkgs/16.09; '
-        'module load python/3.6.3;'
         'cd data; '
-        '/cvmfs/soft.computecanada.ca/easybuild/software/2017/Core/python/3.6.3/bin/virtualenv majiq_env && '
+        '~/python/bin/python3.6 -m venv majiq_env && '
         'cd ../;'
         'scripts/install_majiq.sh {output.env}'
 
